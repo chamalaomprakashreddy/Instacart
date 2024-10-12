@@ -24,4 +24,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
     }
+    TextView forgotPassword = findViewById(R.id.textViewForgetPassword);
+        forgotPassword.setOnClickListener(view -> {
+        Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+        startActivity(intent);
+    });
 }
