@@ -18,15 +18,19 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
 
     private static final String TAG = "LoginActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-    }
-    TextView forgotPassword = findViewById(R.id.textViewForgetPassword);
+        // Initialize views inside onCreate
+        TextView forgotPassword = findViewById(R.id.textViewForgetPassword);
+
+        // Set OnClickListener inside onCreate
         forgotPassword.setOnClickListener(view -> {
-        Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-        startActivity(intent);
-    });
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            startActivity(intent);
+        });
+    }
 }
