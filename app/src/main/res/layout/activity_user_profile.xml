@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,7 +36,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/editBTN"
-        android:src="@drawable/user_image_placeholder"/>
+        android:src="@mipmap/user_image_placeholder_round"/>
 
     <!-- Edit Button -->
     <Button
@@ -126,18 +125,18 @@
         android:visibility="gone"
         />
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/editPasswordET"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="Password"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/editPhoneET"-->
-    <!--        android:visibility="gone"/>-->
+<!--    <EditText-->
+<!--        android:id="@+id/editPasswordET"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/editPhoneET"-->
+<!--        android:visibility="gone"/>-->
 
     <EditText
         android:id="@+id/editAddressET"
