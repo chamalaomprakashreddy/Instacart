@@ -1,0 +1,94 @@
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Checkout Title -->
+    <TextView
+        android:id="@+id/textViewCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checkout"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Order Summary -->
+    <TextView
+        android:id="@+id/textViewOrderSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Summary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/textViewCheckout"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Order Items List (You can use RecyclerView to display order items) -->
+    <!-- activity_checkout.xml -->
+
+    <!-- Divider -->
+
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/textViewOrderSummary"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Total Cost -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCartItems"
+        android:layout_width="378dp"
+        android:layout_height="371dp"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="17dp" />
+    <!-- Delivery Address -->
+
+    <!-- Pay Now Button -->
+
+
+    <Button
+        android:id="@+id/buttonPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewAddress"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:text="Pay Now"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deliveryValue"
+        android:layout_marginStart="1dp"
+
+        android:layout_marginTop="11dp"
+
+        android:layout_marginEnd="16dp"
+        android:text="Delivery Address: 123 Main St, City, Country"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/deliveryValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewCartItems"
+        android:layout_marginTop="7dp"
+        android:text="Delivery Value: $110.00"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>
