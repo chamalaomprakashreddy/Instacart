@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="358dp"
         android:padding="16dp">
 
 
@@ -113,58 +113,54 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <Button
+            android:id="@+id/btnIncrease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="186dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
 
+            android:onClick="onIncreaseClicked"
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/product_image">
+            android:text="+"
+            android:textSize="30dp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="212dp" />
 
-            <Button
-                android:id="@+id/btnDecrease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+        <Button
+            android:id="@+id/btnDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-                android:onClick="onDecreaseClicked"
-                android:text="-"
-                android:textSize="30dp" />
+            android:onClick="onDecreaseClicked"
+            android:text="-"
+            android:textSize="30dp"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="239dp" />
 
-            <TextView
-                android:id="@+id/tvQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:text="1"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnIncrease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-
-                android:onClick="onIncreaseClicked"
-                android:text="+"
-
-                android:textSize="30dp"
-                app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
-                app:layout_constraintStart_toStartOf="@+id/tvQuantity" />
-
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="1"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="214dp"
+            tools:layout_editor_absoluteY="165dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="186dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+
+    </LinearLayout>
 
 </RelativeLayout>
