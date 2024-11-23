@@ -1,6 +1,6 @@
 **InstaCart** aims to address the inconvenience of online shopping by providing users with a streamlined and user-friendly mobile platform. The app will focus on improving the overall shopping experience, making it more efficient and enjoyable for users.
 
-**test credentials**
+**Test credentials**
 
 **username**chamalaomprakash2001@gmail.com
 
