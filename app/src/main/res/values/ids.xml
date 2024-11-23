@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="main" type="id" />
+    <item type="id" name="navigation_home" />
+    <item type="id" name="navigation_cart" />
+    <item type="id" name="navigation_profile" />
+    <item type="id" name="bottom_navigation" />
 </resources>
