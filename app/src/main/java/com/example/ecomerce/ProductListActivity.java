@@ -1,4 +1,5 @@
 package com.example.ecomerce;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +13,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+
 public class ProductListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -58,8 +62,9 @@ public class ProductListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        initializeActivityMap(); // Uncomment to initialize activity map
+        initializeActivityMap();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -72,31 +77,38 @@ public class ProductListActivity extends AppCompatActivity {
 
             return false;
         });
-
     }
+
     private void initializeActivityMap() {
         activityMap = new HashMap<>();
         activityMap.put(R.id.navigation_home, ProductListActivity.class);
         activityMap.put(R.id.navigation_cart, ShoppingCartActivity.class);
         activityMap.put(R.id.navigation_profile, UserProfileActivity.class); // Profile activity
     }
-private void retrieveProducts() {
-    productsRef.get().addOnCompleteListener(task -> {
-        if (task.isSuccessful()) {
-            productList.clear(); // Clear the existing product list
-            for (QueryDocumentSnapshot document : task.getResult()) {
-                // Convert each document into a Product object
-                Product product = document.toObject(Product.class);
-                productList.add(product); // Add the product to the list
+
+    private void retrieveProducts() {
+        Log.d("FirestoreData", "Fetching products from Firestore...");
+        productsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot result = task.getResult();
+                productList.clear(); // Clear the existing product list
+                if (result != null) {
+                    Log.d("FirestoreData", "Data fetched successfully. Total documents: " + result.size());
+                    for (QueryDocumentSnapshot document : result) {
+                        Log.d("FirestoreData", "Document ID: " + document.getId() + ", Data: " + document.getData());
+                        Product product = document.toObject(Product.class);
+                        productList.add(product); // Add the product to the list
+                    }
+                    adapter.notifyDataSetChanged(); // Notify the adapter about data change
+                    Log.d("FirestoreData", "Products loaded into RecyclerView. Total products: " + productList.size());
+                } else {
+                    Log.d("FirestoreData", "QuerySnapshot is null.");
+                }
+            } else {
+                Log.e("FirestoreData", "Error getting products", task.getException());
             }
-            adapter.notifyDataSetChanged(); // Notify the adapter about data change
-        } else {
-            Log.e("ProductListActivity", "Error getting products", task.getException());
-        }
-    });
-}
-
-
+        });
+    }
 
     private void addToCart(Product product) {
         cartItemList.add(product);
@@ -108,4 +120,3 @@ private void retrieveProducts() {
         Log.d("ProductListActivity", "Cart items after adding: " + cartItemList.toString());
     }
 }
-
