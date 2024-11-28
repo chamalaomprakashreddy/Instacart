@@ -1,4 +1,5 @@
 package com.example.ecomerce;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,46 +9,54 @@ public class Product implements Parcelable {
     private double price;
     private String imageUrl;
     private boolean addedToCart;
-    private int quantity; // New field for quantity
+    private int quantity;
 
+    // Default constructor required for Firestore
     public Product() {
-        // Default constructor required for Firestore
+        // Firestore requires an empty constructor
     }
 
-    // Constructors
+    // Constructor to initialize the fields
     public Product(String name, String description, double price, String imageUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
         this.addedToCart = false;
-        this.quantity = 0; // Initialize quantity to 0
+        this.quantity = 0;  // Initialize quantity to 0
     }
 
-    // Getters and setters for quantity
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    // Other getters and setters
+    // Getters and setters for all fields
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public double getPrice() {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public boolean isAddedToCart() {
@@ -58,14 +67,22 @@ public class Product implements Parcelable {
         this.addedToCart = addedToCart;
     }
 
-    // Parcelable implementation
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    // Parcelable implementation to pass Product object between activities
     protected Product(Parcel in) {
         name = in.readString();
         description = in.readString();
         price = in.readDouble();
         imageUrl = in.readString();
         addedToCart = in.readByte() != 0;
-        quantity = in.readInt(); // Read quantity from Parcel
+        quantity = in.readInt();
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -87,7 +104,7 @@ public class Product implements Parcelable {
         dest.writeDouble(price);
         dest.writeString(imageUrl);
         dest.writeByte((byte) (addedToCart ? 1 : 0));
-        dest.writeInt(quantity); // Write quantity to Parcel
+        dest.writeInt(quantity);
     }
 
     @Override

@@ -1,4 +1,5 @@
 package com.example.ecomerce;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +17,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> productList;
     private Context context;
     private OnAddItemClickListener mListener;
-    private RecyclerView recyclerView; // Store RecyclerView instance
+    private RecyclerView recyclerView;
 
     public interface OnAddItemClickListener {
         void onAddItemClick(int position);
     }
 
-    // Constructor
     public ProductAdapter(List<Product> productList, Context context, RecyclerView recyclerView) {
         this.productList = productList;
         this.context = context;
-        this.recyclerView = recyclerView; // Store RecyclerView instance
+        this.recyclerView = recyclerView;
     }
 
-    // Method to set click listener
     public void setOnAddItemClickListener(OnAddItemClickListener listener) {
         mListener = listener;
     }
@@ -50,24 +49,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.bind(product);
+
         Glide.with(context)
                 .load(product.getImageUrl())
-                .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
-                .error(R.drawable.error_image) // Image to display in case of error
-                .into(holder.productImageView); // ImageView to load the image into
-        // ImageView to load the image into
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
+                .into(holder.productImageView);
 
         holder.btnDecrease.setVisibility(product.isAddedToCart() ? View.VISIBLE : View.GONE);
         holder.btnIncrease.setVisibility(product.isAddedToCart() ? View.VISIBLE : View.GONE);
         holder.tvQuantity.setVisibility(product.isAddedToCart() ? View.VISIBLE : View.GONE);
         holder.btnAddToCart.setVisibility(product.isAddedToCart() ? View.GONE : View.VISIBLE);
-        holder.tvQuantity.setText(String.valueOf(product.getQuantity())); // Update quantity text
+        holder.tvQuantity.setText(String.valueOf(product.getQuantity()));
 
         holder.btnDecrease.setOnClickListener(view -> {
             int quantity = product.getQuantity();
             if (quantity > 0) {
                 product.setQuantity(quantity - 1);
-                holder.tvQuantity.setText(String.valueOf(quantity - 1)); // Update quantity text
+                holder.tvQuantity.setText(String.valueOf(quantity - 1));
                 notifyDataSetChanged();
             }
         });
@@ -75,21 +74,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.btnIncrease.setOnClickListener(view -> {
             int quantity = product.getQuantity();
             product.setQuantity(quantity + 1);
-            holder.tvQuantity.setText(String.valueOf(quantity + 1)); // Update quantity text
+            holder.tvQuantity.setText(String.valueOf(quantity + 1));
             notifyDataSetChanged();
             if (mListener != null) {
-                mListener.onAddItemClick(position); // Notify listener to add item to cart
+                mListener.onAddItemClick(position);
             }
         });
 
         holder.btnAddToCart.setOnClickListener(view -> {
             if (mListener != null) {
-                mListener.onAddItemClick(position); // Notify listener to add item to cart
-                holder.btnAddToCart.setVisibility(View.GONE); // Hide the "Add to Cart" button
-                holder.btnDecrease.setVisibility(View.VISIBLE); // Show the decrease button
-                holder.btnIncrease.setVisibility(View.VISIBLE); // Show the increase button
-                holder.tvQuantity.setVisibility(View.VISIBLE); // Show the quantity text
-                holder.tvQuantity.setText("1"); // Set initial quantity to 1
+                mListener.onAddItemClick(position);
+                holder.btnAddToCart.setVisibility(View.GONE);
+                holder.btnDecrease.setVisibility(View.VISIBLE);
+                holder.btnIncrease.setVisibility(View.VISIBLE);
+                holder.tvQuantity.setVisibility(View.VISIBLE);
+                holder.tvQuantity.setText("1");
                 product.setQuantity(1);
             }
         });
@@ -100,16 +99,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    // ViewHolder class
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
-        TextView tvPrice;
-        TextView tvDescription;
-        Button btnDecrease;
-        TextView tvQuantity;
-        Button btnIncrease;
-        Button btnAddToCart; // Add this button
+        TextView tvName, tvPrice, tvDescription, tvQuantity;
+        Button btnDecrease, btnIncrease, btnAddToCart;
         ImageView productImageView;
+
         public ProductViewHolder(@NonNull View itemView, OnAddItemClickListener listener) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
@@ -118,17 +112,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             btnDecrease = itemView.findViewById(R.id.btnDecrease);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             btnIncrease = itemView.findViewById(R.id.btnIncrease);
-            btnAddToCart = itemView.findViewById(R.id.btnAddToCart); // Initialize the button
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
             productImageView = itemView.findViewById(R.id.product_image);
 
-            // Set click listener for the "Add to Cart" button
-            btnAddToCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onAddItemClick(position);
-                    }
+            btnAddToCart.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onAddItemClick(position);
                 }
             });
         }
@@ -139,9 +129,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvDescription.setText(product.getDescription());
             tvQuantity.setText(String.valueOf(product.getQuantity()));
         }
-
     }
 }
-
-
-
