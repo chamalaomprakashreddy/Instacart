@@ -69,6 +69,36 @@ public class CreateAccountActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
+                if (!username.isEmpty() && !name.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !password.isEmpty() && !address.isEmpty()) {
+                    registerUser(username, name, email, phoneNumber, password, address);
 
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("username", username);
+                    user.put("name", name);
+                    user.put("email", email);
+                    user.put("phoneNumber", phoneNumber);
+                    user.put("address", address);
 
-                
+                    db.collection("users")
+                            .add(user)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w(TAG, "Error adding document", e);
+                            });
+                } else {
+                    Toast.makeText(CreateAccountActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    
+
