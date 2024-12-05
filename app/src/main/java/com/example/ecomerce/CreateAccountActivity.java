@@ -99,6 +99,48 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean validatePassword(String password) {
+        // Regular expression for at least one uppercase, one lowercase, one digit, and one special character
+        String passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        return password.matches(passwordPattern);
+    }
 
-    
+    private void registerUser(String username, String name, String email, String phoneNumber, String password, String address) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CreateAccountActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                Map<String, Object> userData = new HashMap<>();
+                                userData.put("username", username);
+                                userData.put("name", name);
+                                userData.put("email", email);
+                                userData.put("phoneNumber", phoneNumber);
+                                userData.put("address", address);
+
+                                db.collection("users").document(user.getUid())
+                                        .set(userData)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(CreateAccountActivity.this, "Failed to save user data.", Toast.LENGTH_SHORT).show();
+                                        });
+                            }
+                        } else {
+                            Toast.makeText(CreateAccountActivity.this, "Registration failed. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+}
+
+
 
